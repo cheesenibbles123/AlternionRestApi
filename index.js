@@ -1,6 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
-const db = require("Handlers/database.js");
+const db = require("./Handlers/database.js");
 
 const config = require('./config.json');
 
