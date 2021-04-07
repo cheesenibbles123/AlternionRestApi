@@ -79,18 +79,6 @@ app.get('/overview', function (req, res) {
   }
 });
 
-app.get('/internal', function (req, res) {
-  if (req.query.steamID){
-    if (req.query.steamID === "test123"){
-      returnError(res,"Correct steamID!");
-    }else{
-      returnError(res,"Incorrect steamID!");
-    }
-  }else{
-    returnError(res,"Missing parameters.");
-  }
-});
-
 app.get('/', function (req,res) {
   returnError(res,"Invalid api query.");
 });
