@@ -15,9 +15,9 @@ exports.authUser = function authUser(steamID,key){
 	return new Promise((resolve,reject) => {
 		connectionPool.query(`SELECT * FROM UserKey WHERE AuthKey=?`,[key], async (err,rows) => {
 			if (rows.length < 1){
-				return {isValid : false, msg : "Invalid Key"}
+				reject({isValid : false, msg : "Invalid Key"});
 			}else if (rows.lenth > 1){
-				return {isValid : false, msg : "Duplicate key"}
+				reject({isValid : false, msg : "Duplicate key"});
 			}else{
 				let validAttempt = { isValid : false, msg : null};
 				switch (rows[0].AuthLevel){
