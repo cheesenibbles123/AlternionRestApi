@@ -12,7 +12,7 @@ const connectionPool = mysql.createPool({
 exports.connectionPool = connectionPool;
 
 exports.authUser = function authUser(steamID,key){
-	connectionPool.query(`SELECT * FROM UserKey WHERE Key=?`,[key], (err,rows) => {
+	connectionPool.query(`SELECT * FROM UserKey WHERE AuthKey=?`,[key], (err,rows) => {
 		if (rows.length < 1){
 			return {isValid : false, msg : "Invalid Key"}
 		}else if (rows.lenth > 1){
