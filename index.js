@@ -21,10 +21,10 @@ function returnError(res,content){
   });
 }
 
-app.get('/overview', function (req, res) {
+app.get('/overview', async function (req, res) {
   if (req.query.steamID && req.query.key){
-    let validKey = db.authUser(req.query.steamID,req.query.key);
-    if (validKey){
+    let validKey = await db.authUser(req.query.steamID,req.query.key);
+    if (validKey.isValid){
       let steamID = parseInt(req.query.steamID);
       if (!isNaN(steamID)){
         db.connectionPool.query(`SELECT * FROM User WHERE Steam_ID=?`,[steamID], (err,rows) => {
