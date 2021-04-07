@@ -1,8 +1,9 @@
 const express = require('express');
-const helmet = require('helmet')
-const app = express();
+const helmet = require('helmet');
 
-const port = 2050;
+const config = require('./config.json');
+
+const app = express();
 
 app.use(helmet())
 
@@ -30,6 +31,6 @@ app.get('/internal', function (req, res) {
   }
 });
  
-app.listen(port, () => {
-  console.log("Listening on port:" + port);
+app.listen(config.port, () => {
+  console.log("Listening on port:" + config.port);
 });
