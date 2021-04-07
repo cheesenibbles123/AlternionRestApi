@@ -72,7 +72,7 @@ app.get('/overview', function (req, res) {
         returnError(res,"Please check your inputs.");
       }
     }else{
-      returnError(res,"Invalid key.");
+      returnError(res,validKey.msg);
     }
   }else{
     returnError(res,"Missing parameters.");
