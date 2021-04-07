@@ -67,10 +67,10 @@ app.get('/overview', function (req, res) {
         }
       });
     }else{
-
+      returnError(res,"Please check your inputs.");
     }
   }else{
-    returnError(res,"Missing parameters");
+    returnError(res,"Missing parameters.");
   }
 });
 
@@ -82,7 +82,7 @@ app.get('/internal', function (req, res) {
       returnError(res,"Incorrect steamID!");
     }
   }else{
-    returnError(res,"Missing parameters");
+    returnError(res,"Missing parameters.");
   }
 });
 
