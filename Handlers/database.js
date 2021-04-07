@@ -40,7 +40,7 @@ exports.authUser = function authUser(steamID,key){
 
 async function checkLink(steamID,User){
 	let promise = new Promise((resolve,reject) => {
-		connectionPool.query(`SELECT Steam_ID FROM User WHERE ID=${linkedUser}`, (err,rows) => {
+		connectionPool.query(`SELECT Steam_ID FROM User WHERE ID=${User}`, (err,rows) => {
 			if (steamID === rows[0].Steam_ID){
 				resolve(true);
 			}else{
