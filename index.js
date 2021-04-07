@@ -11,7 +11,11 @@ app.get('/overview', function (req, res) {
   if (req.query.steamID){
     let steamID = parseInt(req.query.steamID);
     if (!isNaN(steamID)){
-
+      db.pool.query(`SELECT * FROM User WHERE Steam_ID=?`,[steamID], (err,rows) => {
+        if (rows.length < 1){
+          res.send();
+        }
+      })
     }else{
 
     }
