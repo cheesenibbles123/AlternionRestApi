@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "helmet": "^4.4.1"
+    "helmet": "^4.4.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {},
   "scripts": {
