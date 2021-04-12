@@ -12,7 +12,7 @@ let paths = [];
 
 fs.readdirSync(__dirname + folder).forEach((file) => {
 
-	if (file.startsWith("_")) return;
+	if (file.startsWith("_") || !file.endsWith(".js")) return;
 
 	let routeEndpoint = require(__dirname + folder + "/" + file);
 
