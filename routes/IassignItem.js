@@ -210,7 +210,6 @@ module.exports = {
 									if (rows){
 										for (let i = 0; i < rows.length; i++){
 											if (req.query.id === rows[i].Name){
-												console.log(`UPDATE User SET ${fieldName}=${rows[i].ID} WHERE Steam_ID='${req.query.steamID}'`);
 												db.connectionPool.query(`UPDATE User SET ${fieldName}=${rows[i].ID} WHERE Steam_ID='${req.query.steamID}'`);
 												found = true;
 												break;
@@ -221,7 +220,6 @@ module.exports = {
 									if (rows2 && !found){
 										for (let i = 0; i < rows2.length; i++){
 											if (req.query.id === rows2[i].Name){
-												console.log(`UPDATE User SET ${fieldName}=${rows2[i].ID} WHERE Steam_ID='${req.query.steamID}'`);
 												db.connectionPool.query(`UPDATE User SET ${fieldName}=${rows2[i].ID} WHERE Steam_ID='${req.query.steamID}'`);
 												found = true;
 												break;
