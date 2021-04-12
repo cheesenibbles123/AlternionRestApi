@@ -12,8 +12,8 @@ module.exports = {
 		  		target : parseInt(req.query.target),
 		  		executor : parseInt(req.query.executor)
 		  	}
-
-		    let validKey = await db.authTeamLeader(data.target,data.executor,req.query.key);
+		  	
+		    let validKey = await db.authTeamLeader(data.executor,data.target,req.query.key);
 		    if (validKey.isValid){
 		      let steamID = parseInt(req.query.steamID);
 		      if (!isNaN(data.target) && !isNaN(data.executor)){
