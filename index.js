@@ -8,12 +8,23 @@ app.use(helmet());
 
 let folder = "/routes";
 
+let paths = [];
+
 fs.readdirSync(__dirname + folder).forEach((file) => {
-	let router = express.Router();
-	let path = folder + "/" + file;
+
 	let routeEndpoint = require(__dirname + folder + "/" + file);
-	app.use(routeEndpoint.path,routeEndpoint.route(router));
-	console.log("Added: " + routeEndpoint.path);
+
+	if (!paths.includes(routeEndpoint.path)){
+		let router = express.Router();
+		let path = folder + "/" + file;
+		app.use(routeEndpoint.path,routeEndpoint.route(router));
+		paths.push(routeEndpoint.path);
+		console.log("Added: " + routeEndpoint.path);
+	}else{
+		console.log("Error loading path: " + routeEndpoint.path);
+		console.log("From file: " + folder + "/" + file);
+		console.log("Duplicate path found.");
+	}
 });
 
 app.listen(config.port);
