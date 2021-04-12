@@ -13,9 +13,10 @@ module.exports = {
 		      let steamID = parseInt(req.query.steamID);
 		      if (!isNaN(steamID)){
 
+		      	let obj;
+		      	
 		      	if (parseInt(req.query.public) === 1){
 		      		db.connectionPool.query(`SELECT Name, Display_Name FROM Cannon WHERE Limited!=1`, (err,rows) => {
-		      			let obj;
 
 						if (rows.length < 1){
 							obj = "No Cannons found.";
@@ -31,7 +32,6 @@ module.exports = {
 		      	}else{
 		      		db.connectionPool.query(`SELECT Team_ID from User where Steam_ID=?`,[steamID], (err,rows1) => {
 						db.connectionPool.query(`(SELECT Cannon.Name, Cannon.Display_Name FROM LimitedCannons INNER JOIN User ON User_ID = User.ID INNER JOIN Cannon ON Allowed_Cannon_ID = Cannon.ID WHERE User.Steam_ID=?) UNION (SELECT Name, Display_Name FROM Cannon WHERE Team_ID=${rows1[0].Team_ID} AND IF ( ${rows1[0].Team_ID} != 0, 1, 0) = 1 )`,[steamID], (err,rows) => {
-							let obj;
 
 							if (rows.length < 1){
 								obj = "No Cannons found.";
