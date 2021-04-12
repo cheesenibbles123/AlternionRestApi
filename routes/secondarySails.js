@@ -1,6 +1,6 @@
 const db = require('./../Handlers/database.js');
 const responses = require('./../Handlers/responses.js');
-
+const sharedFunctions = require("./_sharedFunctions");
 
 module.exports = {
 	path: "/secondarySails",
@@ -18,14 +18,7 @@ module.exports = {
 		      	if (parseInt(req.query.public) === 1){
 		      		db.connectionPool.query(`SELECT Name, Display_Name FROM NormalSail WHERE Limited!=1`, (err,rows) => {
 
-						if (rows.length < 1){
-							obj = "No Sails found.";
-						}else{
-							obj = {};
-							for (let i = 0; i < rows.length; i++){
-								obj[`${rows[i].Name}`] = rows[i].Display_Name;
-							}
-						}
+						obj = sharedFunctions.loopRows(rows,"Flags");
 
 						responses.returnSuccess(res,obj);
 					});
@@ -33,14 +26,7 @@ module.exports = {
 		      		db.connectionPool.query(`SELECT Team_ID from User where Steam_ID=?`,[steamID], (err,rows1) => {
 						db.connectionPool.query(`(SELECT NormalSail.Name, NormalSail.Display_Name FROM LimitedSails INNER JOIN User ON User_ID = User.ID INNER JOIN NormalSail ON Allowed_Sail_ID = NormalSail.ID WHERE User.Steam_ID=?) UNION (SELECT Name, Display_Name FROM NormalSail WHERE Team_ID=${rows1[0].Team_ID} AND IF ( ${rows1[0].Team_ID} != 0, 1, 0) = 1 )`,[steamID], (err,rows) => {
 
-							if (rows.length < 1){
-								obj = "No Sails found.";
-							}else{
-								obj = {};
-								for (let i = 0; i < rows.length; i++){
-									obj[`${rows[i].Name}`] = rows[i].Display_Name;
-								}
-							}
+							obj = sharedFunctions.loopRows(rows,"Flags");
 
 							responses.returnSuccess(res,obj);
 						});
