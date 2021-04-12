@@ -12,9 +12,11 @@ let paths = [];
 
 fs.readdirSync(__dirname + folder).forEach((file) => {
 
+	if (file.startsWith("_")) return;
+
 	let routeEndpoint = require(__dirname + folder + "/" + file);
 
-	if (!file.startsWith("_") && !paths.includes(routeEndpoint.path)){
+	if (!paths.includes(routeEndpoint.path)){
 		let router = express.Router();
 		let path = folder + "/" + file;
 		app.use(routeEndpoint.path,routeEndpoint.route(router));
