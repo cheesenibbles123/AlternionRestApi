@@ -44,9 +44,9 @@ exports.authTeamLeader = function authTeamLeader(tlSteamID, affectedSteamID, key
 	return new Promise((resolve,reject) => {
 		connectionPool.query(`SELECT * FROM UserKey WHERE AuthKey=?`,[key], async (err,rows) => {
 			if (rows.length < 1){
-				reject({isValid : false, msg : "Invalid Key"});
+				resolve({isValid : false, msg : "Invalid Key"});
 			}else if (rows.length > 1){
-				reject({isValid : false, msg : "Duplicate key"});
+				resolve({isValid : false, msg : "Duplicate key"});
 			}else{
 				let validAttempt = { isValid : false, msg : null};
 				switch (rows[0].AuthLevel){
