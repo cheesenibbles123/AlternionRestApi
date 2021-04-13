@@ -79,7 +79,6 @@ module.exports = {
 	route: (router) => {
 		router.use("/", async (req,res) => {
 			let data = req.query;
-			console.log("Got to alpha");
 			if (data.key){
 				let steamID;
 				if (data.id){
@@ -92,9 +91,7 @@ module.exports = {
 				}else{
 					steamID = data.target;
 				}
-				console.log("Got to beta");
 				let validKey = await db.authTeamLeader(data.executor, steamID, data.key);
-				console.log("Got to charlie");
 				if (validKey.isValid){
 					main(data,req,res);
 				}else{

@@ -49,8 +49,6 @@ exports.authTeamLeader = function authTeamLeader(tlSteamID, affectedSteamID, key
 				resolve({isValid : false, msg : "Duplicate key"});
 			}else{
 				let validAttempt = { isValid : false, msg : null};
-				console.log("Checking key: " + key);
-				console.log(rows);
 				switch (rows[0].AuthLevel){
 					case 1:
 						// Global key
