@@ -95,10 +95,10 @@ module.exports = {
 				console.log("Got to beta");
 				let validKey = await db.authTeamLeader(data.executor, steamID, data.key);
 				console.log("Got to charlie");
-				if (validKey.isValidid){
+				if (validKey.isValid){
 					main(data,req,res);
 				}else{
-					response.returnError(res,validKey.msg);
+					responses.returnError(res,validKey.msg);
 				}
 			}else{
 				responses.returnError(res,"Missing Parameters.");
