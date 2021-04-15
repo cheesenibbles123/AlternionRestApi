@@ -50,7 +50,7 @@ module.exports = {
 												responses.returnError(res,"Item not found.");
 											}else{
 												db.connectionPool.query(`UPDATE User SET ${field}=${rows2[0].ID} WHERE Team_ID=${rows[0].Team_ID}`);
-												responses.sendSuccess(res,"User(s) updated!");
+												responses.returnSuccess(res,"User(s) updated!");
 											}
 										});
 									}else{
