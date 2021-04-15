@@ -4,7 +4,7 @@ const responses = require('./../Handlers/responses.js');
 module.exports = {
 	path: "/forceUpdate",
 	route: (router) => {
-		router.get("/", (req,res) => {
+		router.get("/", async (req,res) => {
 			let data = req.query;
 			if (data.executor && data.key && data.type && data.id){
 				let validKey = await db.authTeamLeader(data.executor,data.key);
