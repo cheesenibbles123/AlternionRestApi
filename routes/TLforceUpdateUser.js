@@ -66,6 +66,8 @@ module.exports = {
 												responses.sendSuccess(res,"User updated!");
 											}
 										});
+									}else{
+										responses.returnError(res,"Invalid type given.");
 									}
 								}
 
