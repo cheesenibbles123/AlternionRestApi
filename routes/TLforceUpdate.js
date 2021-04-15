@@ -2,7 +2,7 @@ const db = require('./../Handlers/database.js');
 const responses = require('./../Handlers/responses.js');
 
 module.exports = {
-	path: "/forceUpdate",
+	path: "/forceUpdateUser",
 	route: (router) => {
 		router.get("/", (req,res) => {
 			let data = req.query;
