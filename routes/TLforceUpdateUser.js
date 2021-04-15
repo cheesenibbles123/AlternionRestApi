@@ -59,7 +59,7 @@ module.exports = {
 										db.connectionPool.query(`SELECT * FROM ? WHERE Name=?`,[table,data.id],(err,rows2) => {
 											if (typeof(rows) === undefined || rows2.length < 1 || rows2.length > 1){
 												responses.returnError(res,"Invalid id/type");
-											}else if (rows2[0].Team_ID !== rpws[tlRowNum].Team_Leader){
+											}else if (rows2[0].Team_ID !== rows[tlRowNum].Team_Leader){
 												responses.returnError(res,"Item not found.");
 											}else{
 												db.connectionPool.query(`UPDATE User SET ${field}=${rows2[0].ID} WHERE ID=${rows[taRowNum].ID}`);
