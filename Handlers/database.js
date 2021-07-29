@@ -9,6 +9,22 @@ const connectionPool = mysql.createPool({
 	database : config.databaseInfo.database
 });
 
+exports.getUser = function getUser(steamID){
+	return new Promise((resolve,reject) => {
+		if (!isNaN(parseInt(steamID))){
+			connectionPool.query(`SELECT ID FROM User WHERE Steam_ID=?`,[steamID],(err,rows) => {
+				if (rows.length < 1){
+					resolve({ isValid : false, msg : "Not found"});
+				}else if (rows.length > 1){
+					resolve({ isValid : false, msg : "Duplicate steamID"});
+				}else{
+					resolve({ isValid : true, data : rows[0]});
+				}
+			});
+		}
+	}
+}
+
 exports.connectionPool = connectionPool;
 
 exports.authUser = function authUser(steamID,key){
