@@ -7,14 +7,11 @@ module.exports = {
 		router.get("/", async (req,res) => {
 			if (req.query.steamId && req.query.key){
 				let validKey = await db.authUser(req.query.steamid,req.query.key);
-				if (validKey.isValid && !isNaN(parseInt(req.query.steamId))){
-					db.connectionPool.query(`SELECT ID FROM User WHERE Steam_ID=?`,[req.query.steamId],(err,rows) => {
-						if (rows.length < 1 || rows.length > 1){
-							responses.returnError(res,"Invalid steamid");
-						}else{
-							responses.returnSuccess(res,rows[0].ID);
-						}
-					})
+				let response = await db.getUser(steamID);
+				if (response.isValid){
+					responses.returnSuccess(res, response.data.ID);
+				}else{
+					responses.returnError(res, response.msg);
 				}
 			}
 		});
