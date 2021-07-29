@@ -12,12 +12,12 @@ module.exports = {
 					if (data.id.includes(" ")){
 						responses.returnError("Please check your inputs.");
 					}else{
-						db.connectionPool.query(`SELECT * FROM User WHERE Steam_ID=?`,[data.executor],(err,rows) => {
-							if (typeof(rows) === undefined || rows.length < 1 || rows.length > 1){
-								responses.returnError(res,"Please check your inputs.");
+						db.getUser(data.executor).then(response => {
+							if (!response.isValid){
+								responses.returnError(res,response.msg);
 							}else{
-
-								if (rows[0].Team_Leader === 0){
+								let user = response.data;
+								if (user.Team_Leader === 0){
 									responses.returnError(res,"This command is for team leaders only.");
 								}else{
 
@@ -49,7 +49,7 @@ module.exports = {
 											}else if (rows2[0].Team_ID !== rows[0].Team_Leader){
 												responses.returnError(res,"Item not found.");
 											}else{
-												db.connectionPool.query(`UPDATE User SET ${field}=${rows2[0].ID} WHERE Team_ID=${rows[0].Team_ID}`);
+												db.connectionPool.query(`UPDATE User SET ${field}=${rows2[0].ID} WHERE Team_ID=${user.Team_ID}`);
 												responses.returnSuccess(res,"User(s) updated!");
 											}
 										});
@@ -57,7 +57,6 @@ module.exports = {
 										responses.returnError(res,"Invalid type given.");
 									}
 								}
-
 							}
 						});
 					}
