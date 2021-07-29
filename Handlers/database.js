@@ -57,8 +57,7 @@ exports.authTeamLeader = function authTeamLeader(tlSteamID, affectedSteamID, key
 						// Team Leader
 						validAttempt.isValid = await checkTeam(affectedSteamID,tlSteamID,rows[0].LinkedUser);
 					default:
-						validAttempt.isValid = false;
-						validAttempt.msg = "Invalid key.";
+						validAttempt = {isValid : false, msg : "Invalid Key"};
 						break;
 				}
 				resolve(validAttempt);
